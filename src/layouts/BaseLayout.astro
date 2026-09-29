@@ -1,0 +1,32 @@
+---
+import '../styles/global.css';
+interface Props { title: string; description?: string; }
+const { title, description = 'Tales from the Scarf — Nicolas Georgeault' } = Astro.props;
+---
+<!doctype html>
+<html lang="fr-CA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <nav class="shell">
+        <a class="brand" href="/">Tales from the Scarf</a>
+        <div class="navlinks">
+          <a href="/">Accueil</a>
+          <a href="/#articles">Technologies</a>
+          <a href="/#articles">Communautés</a>
+          <a href="/#articles">Carnets personnels</a>
+        </div>
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer>
+      <div class="shell">POC Astro + OKF — simulation isolée de georgeault.net. Aucun impact sur le site WordPress actuel.</div>
+    </footer>
+  </body>
+</html>
