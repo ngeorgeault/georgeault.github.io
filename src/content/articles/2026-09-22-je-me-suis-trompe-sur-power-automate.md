@@ -9,6 +9,9 @@ legacyUrl: "/je-me-suis-trompe-sur-power-automate/"
 sourceUrl: "https://georgeault.net/je-me-suis-trompe-sur-power-automate/"
 okfSource: "knowledge/okf/articles/power-automate-agents.md"
 migrationStatus: "sample"
+imageUrl: "https://images.unsplash.com/photo-1729327741498-f7f6a7ba6fee?auto=format&fit=crop&fm=jpg&q=82&w=1800"
+imageAlt: "Espace de travail technologique avec écran, ordinateur portable et clavier"
+imageCredit: "Aditya Sethia / Unsplash — photo de démonstration pour le POC"
 ---
 
 Pendant un temps, j’ai regardé les agents comme la prochaine étape logique de l’automatisation. C’était une erreur de perspective.
