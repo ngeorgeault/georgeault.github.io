@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import VelocityArticleHero from '../components/VelocityArticleHero.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -12,21 +13,37 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const fmt = new Intl.DateTimeFormat('fr-CA', { day:'numeric', month:'long', year:'numeric' });
 ---
-<BaseLayout title={article.data.title} description={article.data.description}>
-  <article class="article">
-    <div class="eyebrow">{article.data.categories.join(' · ')}</div>
-    <h1>{article.data.title}</h1>
-    <div class="meta">{fmt.format(article.data.publishedAt)} · Par {article.data.author}</div>
-    <p class="lead">{article.data.description}</p>
+<BaseLayout title={article.data.title} description={article.data.description} image={article.data.imageUrl}>
+  <VelocityArticleHero article={article} />
 
-    {article.data.migrationStatus === 'sample' && (
-      <div class="migration">
-        <strong>POC de migration :</strong> cette page valide le slug, les métadonnées, le rendu Markdown et le lien vers l’OKF. Le corps est volontairement abrégé dans ce dry-run ; une migration réelle importerait le contenu WordPress intégral et les médias.
+  <article class:list={['py-12 md:py-16', article.data.imageUrl ? 'pt-20 md:pt-24' : '']}>
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="mb-8 flex items-center gap-2 text-sm text-foreground-subtle">
+        <a class="hover:text-foreground" href="/">Accueil</a>
+        <span>/</span>
+        <span>Article</span>
       </div>
-    )}
 
-    <div class="prose"><Content /></div>
+      {article.data.migrationStatus === 'sample' && (
+        <div class="mb-10 rounded-lg border border-brand-200 bg-brand-50 p-4 text-sm leading-relaxed text-brand-900 dark:border-brand-800 dark:bg-brand-900/20 dark:text-brand-100">
+          <strong>POC de migration :</strong> cette page utilise maintenant la couche visuelle Velocity. Le corps reste volontairement abrégé ; la migration réelle importerait le texte complet et les médias WordPress.
+        </div>
+      )}
+
+      <div class="prose max-w-none text-lg">
+        <Content />
+      </div>
+
+      {article.data.imageCredit && (
+        <p class="mt-12 border-t border-border pt-6 text-xs text-foreground-subtle">
+          Image de démonstration : {article.data.imageCredit}
+        </p>
+      )}
+
+      <div class="mt-12 border-t border-border pt-8">
+        <a class="font-semibold text-brand-600 hover:text-brand-500 dark:text-brand-400" href="/">← Retour aux articles</a>
+      </div>
+    </div>
   </article>
 </BaseLayout>
