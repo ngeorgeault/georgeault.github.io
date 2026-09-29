@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const articles = (await getCollection('articles')).sort(
+  (a,b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+);
+const fmt = new Intl.DateTimeFormat('fr-CA', { day:'numeric', month:'long', year:'numeric' });
+---
+<BaseLayout title="Tales from the Scarf — POC Astro + OKF">
+  <section class="hero shell">
+    <div>
+      <div class="eyebrow">Simulation de migration</div>
+      <h1>C’est bien plus que de la technologie…</h1>
+    </div>
+    <div>
+      <p>Un prototype Astro qui teste une publication statique, des URL héritées de WordPress et une base OKF séparée pour structurer les idées qui méritent de devenir des actifs de connaissance.</p>
+      <p class="note"><strong>Dry-run :</strong> seulement cinq articles. Le WordPress actuel reste la source officielle pendant toute la simulation.</p>
+    </div>
+  </section>
+
+  <section id="articles" class="grid shell">
+    {articles.map((article) => (
+      <article class="card">
+        <div>
+          <div class="meta">{fmt.format(article.data.publishedAt)} · {article.data.categories.join(' · ')}</div>
+          <h2><a href={article.data.legacyUrl}>{article.data.title}</a></h2>
+          <p>{article.data.description}</p>
+        </div>
+        <div class="tags">
+          {article.data.tags.slice(0,4).map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      </article>
+    ))}
+  </section>
+</BaseLayout>
