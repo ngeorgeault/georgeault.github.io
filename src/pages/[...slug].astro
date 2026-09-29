@@ -13,6 +13,7 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
+const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title={article.data.title} description={article.data.description} image={article.data.imageUrl}>
   <VelocityArticleHero article={article} />
@@ -20,7 +21,7 @@ const { Content } = await render(article);
   <article class:list={['py-12 md:py-16', article.data.imageUrl ? 'pt-20 md:pt-24' : '']}>
     <div class="mx-auto max-w-4xl px-6">
       <div class="mb-8 flex items-center gap-2 text-sm text-foreground-subtle">
-        <a class="hover:text-foreground" href="/">Accueil</a>
+        <a class="hover:text-foreground" href={base}>Accueil</a>
         <span>/</span>
         <span>Article</span>
       </div>
@@ -42,7 +43,7 @@ const { Content } = await render(article);
       )}
 
       <div class="mt-12 border-t border-border pt-8">
-        <a class="font-semibold text-brand-600 hover:text-brand-500 dark:text-brand-400" href="/">← Retour aux articles</a>
+        <a class="font-semibold text-brand-600 hover:text-brand-500 dark:text-brand-400" href={base}>← Retour aux articles</a>
       </div>
     </div>
   </article>
