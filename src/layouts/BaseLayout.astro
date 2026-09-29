@@ -1,7 +1,17 @@
 ---
 import '../styles/global.css';
-interface Props { title: string; description?: string; }
-const { title, description = 'Tales from the Scarf — Nicolas Georgeault' } = Astro.props;
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description = 'Tales from the Scarf — Nicolas Georgeault',
+  image,
+} = Astro.props;
 ---
 <!doctype html>
 <html lang="fr-CA">
@@ -10,23 +20,57 @@ const { title, description = 'Tales from the Scarf — Nicolas Georgeault' } = A
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {image && <meta property="og:image" content={image} />}
     <title>{title}</title>
+    <script is:inline>
+      const storedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
-  <body>
-    <header>
-      <nav class="shell">
-        <a class="brand" href="/">Tales from the Scarf</a>
-        <div class="navlinks">
-          <a href="/">Accueil</a>
-          <a href="/#articles">Technologies</a>
-          <a href="/#articles">Communautés</a>
-          <a href="/#articles">Carnets personnels</a>
-        </div>
-      </nav>
+  <body class="bg-background text-foreground">
+    <header class="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-xl">
+      <div class="container flex h-18 items-center justify-between">
+        <a class="font-display text-xl font-bold tracking-tight" href="/">
+          Tales from the Scarf
+        </a>
+        <nav class="hidden items-center gap-1 md:flex">
+          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href="/">Accueil</a>
+          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href="/#articles">Technologies</a>
+          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href="/#articles">Communautés</a>
+          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href="/#articles">Carnets personnels</a>
+        </nav>
+        <button
+          id="theme-toggle"
+          class="rounded-md border border-border bg-background-secondary px-3 py-2 text-sm font-semibold hover:bg-background-tertiary"
+          aria-label="Changer de thème"
+        >
+          ◐
+        </button>
+      </div>
     </header>
+
     <main><slot /></main>
-    <footer>
-      <div class="shell">POC Astro + OKF — simulation isolée de georgeault.net. Aucun impact sur le site WordPress actuel.</div>
+
+    <footer class="border-t border-border bg-background-secondary">
+      <div class="container py-10 text-sm text-foreground-muted">
+        <div class="flex flex-col justify-between gap-3 md:flex-row">
+          <span>POC Astro + OKF — simulation isolée de georgeault.net.</span>
+          <span>Présentation basée sur Velocity.</span>
+        </div>
+      </div>
     </footer>
+
+    <script is:inline>
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const root = document.documentElement;
+        const dark = root.classList.toggle('dark');
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+      });
+    </script>
   </body>
 </html>
