@@ -14,6 +14,9 @@ const articles = defineCollection({
     sourceUrl: z.string().url(),
     okfSource: z.string().startsWith('knowledge/okf/'),
     migrationStatus: z.enum(['sample', 'full']).default('sample'),
+    imageUrl: z.string().url().optional(),
+    imageAlt: z.string().optional(),
+    imageCredit: z.string().optional(),
   }),
 });
 
