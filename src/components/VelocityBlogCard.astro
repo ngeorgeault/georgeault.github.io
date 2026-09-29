@@ -5,6 +5,8 @@ interface Props {
 }
 const { article, featured = false } = Astro.props;
 const fmt = new Intl.DateTimeFormat('fr-CA', { day: 'numeric', month: 'short', year: 'numeric' });
+const base = import.meta.env.BASE_URL;
+const articleHref = `${base}${article.data.legacyUrl.replace(/^\//, '')}`;
 ---
 
 <article class:list={[
@@ -13,7 +15,7 @@ const fmt = new Intl.DateTimeFormat('fr-CA', { day: 'numeric', month: 'short', y
     ? 'border-brand-500/30 shadow-lg md:col-span-2'
     : 'border-border hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md',
 ]}>
-  <a href={article.data.legacyUrl} class:list={['block', featured && 'md:grid md:grid-cols-2']}>
+  <a href={articleHref} class:list={['block', featured && 'md:grid md:grid-cols-2']}>
     {article.data.imageUrl && (
       <div class="overflow-hidden bg-background-secondary">
         <img
