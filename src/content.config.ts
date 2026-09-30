@@ -24,6 +24,7 @@ const articles = defineCollection({
     legacyViews: z.number().int().nonnegative().optional(),
     wpId: z.number().int().positive().optional(),
     modifiedAt: z.coerce.date().optional(),
+    readingMinutes: z.number().int().positive().optional(),
   }),
 });
 
