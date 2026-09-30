@@ -37,6 +37,12 @@ const articleHref = `${base}${prefix}${article.data.legacyUrl.replace(/^\//, '')
         <time datetime={article.data.publishedAt.toISOString()}>{fmt.format(article.data.publishedAt)}</time>
         <span>·</span>
         <span>{article.data.categories.join(' · ')}</span>
+        {article.data.readingMinutes !== undefined && (
+          <>
+            <span>·</span>
+            <span>{article.data.readingMinutes} {article.data.lang === 'en-CA' ? 'min read' : 'min de lecture'}</span>
+          </>
+        )}
         {article.data.legacyViews !== undefined && (
           <>
             <span>·</span>
