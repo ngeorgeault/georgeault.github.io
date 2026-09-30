@@ -38,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: Sync 10 latest WordPress articles
+      - name: Sync 20 latest WordPress articles
         run: node scripts/sync-wordpress.mjs
 
       - name: Build Astro site
