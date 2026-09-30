@@ -21,6 +21,7 @@ const base = import.meta.env.BASE_URL;
 const isEnglish = lang === 'en-CA';
 const homeHref = isEnglish ? `${base}en-ca/` : base;
 const articlesHref = `${homeHref}#articles`;
+const searchHref = isEnglish ? `${base}en-ca/search/` : `${base}recherche/`;
 const switchTarget = alternateHref ?? (isEnglish ? base : `${base}en-ca/`);
 ---
 <!doctype html>
@@ -71,9 +72,18 @@ const switchTarget = alternateHref ?? (isEnglish ? base : `${base}en-ca/`);
           <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={articlesHref}>
             {isEnglish ? 'Personal notes' : 'Carnets personnels'}
           </a>
+          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={searchHref}>
+            {isEnglish ? 'Search' : 'Recherche'}
+          </a>
         </nav>
 
         <div class="flex items-center gap-2">
+          <a
+            class="inline-flex items-center justify-center rounded-md border border-border bg-background-secondary px-3 py-2 text-sm font-semibold transition-colors hover:bg-background-tertiary lg:hidden"
+            href={searchHref}
+            aria-label={isEnglish ? 'Search' : 'Rechercher'}
+            title={isEnglish ? 'Search' : 'Rechercher'}
+          >⌕</a>
           <label class="sr-only" for="locale-select">{isEnglish ? 'Language' : 'Langue'}</label>
           <select
             id="locale-select"
