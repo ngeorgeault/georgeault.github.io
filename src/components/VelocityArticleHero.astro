@@ -40,6 +40,12 @@ const viewsLabel = article.data.lang === 'en-CA' ? 'legacy WordPress views' : 'v
       <time datetime={article.data.publishedAt.toISOString()}>{fmt.format(article.data.publishedAt)}</time>
       <div class="hidden h-8 w-px bg-border md:block"></div>
       <span>{article.data.categories.join(' · ')}</span>
+      {article.data.readingMinutes !== undefined && (
+        <>
+          <div class="hidden h-8 w-px bg-border md:block"></div>
+          <span>{article.data.readingMinutes} {article.data.lang === 'en-CA' ? 'min read' : 'min de lecture'}</span>
+        </>
+      )}
       {article.data.legacyViews !== undefined && (
         <>
           <div class="hidden h-8 w-px bg-border md:block"></div>
