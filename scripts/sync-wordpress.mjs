@@ -1,7 +1,7 @@
 import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const API = 'https://georgeault.net/wp-json/wp/v2/posts?per_page=10&_embed=1&status=publish';
+const API = 'https://georgeault.net/wp-json/wp/v2/posts?per_page=20&_embed=1&status=publish';
 const OUT = new URL('../src/content/articles/', import.meta.url);
 const OKF_OUT = new URL('../knowledge/okf/imported/', import.meta.url);
 
@@ -70,8 +70,8 @@ if (!response.ok) {
 
 const posts = await response.json();
 
-if (!Array.isArray(posts) || posts.length !== 10) {
-  throw new Error(`Expected 10 WordPress posts, received ${Array.isArray(posts) ? posts.length : 'invalid payload'}`);
+if (!Array.isArray(posts) || posts.length !== 20) {
+  throw new Error(`Expected 20 WordPress posts, received ${Array.isArray(posts) ? posts.length : 'invalid payload'}`);
 }
 
 for (const post of posts) {
