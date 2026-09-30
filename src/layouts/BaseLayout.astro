@@ -34,6 +34,15 @@ const switchTarget = alternateHref ?? (isEnglish ? base : `${base}en-ca/`);
     <meta property="og:description" content={description} />
     {image && <meta property="og:image" content={image} />}
     <title>{title}</title>
+    {import.meta.env.PUBLIC_UMAMI_SCRIPT_URL && import.meta.env.PUBLIC_UMAMI_WEBSITE_ID && (
+      <script
+        defer
+        src={import.meta.env.PUBLIC_UMAMI_SCRIPT_URL}
+        data-website-id={import.meta.env.PUBLIC_UMAMI_WEBSITE_ID}
+        data-domains={import.meta.env.PUBLIC_UMAMI_DOMAINS || undefined}
+        data-performance="true"
+      ></script>
+    )}
     <script is:inline>
       const storedTheme = localStorage.getItem('theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
