@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionPage from '../../components/SectionPage.astro';
+import { getCollection } from 'astro:content';
+import { categorySlug } from '../../config/sections';
+
+export async function getStaticPaths() {
+  const articles = (await getCollection('articles')).filter((article) => article.data.lang === 'fr-CA');
+  const categories = [...new Set(articles.flatMap((article) => article.data.categories))];
+
+  return categories.map((category) => ({
+    params: { slug: categorySlug(category) },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const articles = (await getCollection('articles'))
+  .filter((article) => article.data.lang === 'fr-CA' && article.data.categories.includes(category))
+  .sort((a,b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+<BaseLayout title={`${category} — Tales from the Scarf`} lang="fr-CA">
+  <SectionPage
+    title={category}
+    description={`Articles classés dans la catégorie « ${category} ».`}
+    articles={articles}
+  />
+</BaseLayout>
