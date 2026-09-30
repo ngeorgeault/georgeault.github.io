@@ -1,27 +1,37 @@
 ---
 title: "Je me suis trompé sur Power Automate"
-description: "Agents et automatisations ne se remplacent pas : ils ont des rôles différents et doivent aussi être gouvernés différemment."
+description: "L’agent orchestre. L’automatisation exécute. La plateforme gouverne."
 publishedAt: 2026-09-22
 author: "Nicolas Georgeault"
 categories: ["Article"]
-tags: ["Power Automate", "Agents", "Gouvernance", "Power Platform"]
+tags: ["Power Automate", "Copilot Studio", "Agents IA", "Gouvernance"]
 legacyUrl: "/je-me-suis-trompe-sur-power-automate/"
 sourceUrl: "https://georgeault.net/je-me-suis-trompe-sur-power-automate/"
 okfSource: "knowledge/okf/articles/power-automate-agents.md"
 migrationStatus: "sample"
+lang: "fr-CA"
+translationKey: "power-automate-role-separation"
+translationStatus: "source"
+legacyViews: 99
 imageUrl: "https://images.unsplash.com/photo-1729327741498-f7f6a7ba6fee?auto=format&fit=crop&fm=jpg&q=82&w=1800"
-imageAlt: "Espace de travail technologique avec écran, ordinateur portable et clavier"
-imageCredit: "Aditya Sethia / Unsplash — photo de démonstration pour le POC"
+imageAlt: "Poste de travail technologique utilisé comme visuel temporaire pour le POC"
+imageCredit: "Visuel temporaire du POC — l’image originale WordPress sera importée avec la médiathèque lors du vrai dry-run."
 ---
 
-Pendant un temps, j’ai regardé les agents comme la prochaine étape logique de l’automatisation. C’était une erreur de perspective.
+Je me suis trompé sur Power Automate. Pendant plusieurs années, j’ai présenté l’automatisation comme quelque chose que le créateur de solution devait souvent construire lui-même.
 
-## Deux responsabilités différentes
+L’arrivée des agents IA me pousse à revoir cette idée.
 
-Un agent interprète, raisonne, choisit et orchestre. Une automatisation exécute un processus déterminé de manière prévisible. Les deux peuvent collaborer, mais les confondre crée rapidement des architectures difficiles à exploiter et encore plus difficiles à gouverner.
+## L’agent orchestre
 
-## Power Automate reste un moteur d’automatisation
+L’agent comprend l’intention, choisit la prochaine étape et coordonne le travail.
 
-L’arrivée des agents ne supprime donc pas Power Automate. Elle rend au contraire plus importante la distinction entre la couche conversationnelle ou agentique et la couche d’exécution.
+## L’automatisation exécute
 
-Le modèle OKF de ce POC isole précisément cette idée réutilisable du texte éditorial publié.
+Power Automate reste la couche d’exécution : déterministe, testable, observable et gouvernable.
+
+## La plateforme gouverne
+
+La séparation des responsabilités devient alors plus claire : concevoir l’agent, industrialiser l’automatisation et gouverner la plateforme sont trois responsabilités différentes.
+
+C’est cette connaissance réutilisable qui est séparée de la publication dans l’OKF associé.
