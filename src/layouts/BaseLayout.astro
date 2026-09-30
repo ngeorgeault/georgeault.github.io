@@ -21,6 +21,9 @@ const base = import.meta.env.BASE_URL;
 const isEnglish = lang === 'en-CA';
 const homeHref = isEnglish ? `${base}en-ca/` : base;
 const articlesHref = `${homeHref}#articles`;
+const technologiesHref = isEnglish ? `${base}en-ca/technology/` : `${base}technologies/`;
+const communitiesHref = isEnglish ? `${base}en-ca/communities/` : `${base}communautes/`;
+const personalHref = isEnglish ? `${base}en-ca/personal-notes/` : `${base}carnets-personnels/`;
 const searchHref = isEnglish ? `${base}en-ca/search/` : `${base}recherche/`;
 const switchTarget = alternateHref ?? (isEnglish ? base : `${base}en-ca/`);
 ---
@@ -63,13 +66,13 @@ const switchTarget = alternateHref ?? (isEnglish ? base : `${base}en-ca/`);
           <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={homeHref}>
             {isEnglish ? 'Home' : 'Accueil'}
           </a>
-          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={articlesHref}>
+          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={technologiesHref}>
             {isEnglish ? 'Technology' : 'Technologies'}
           </a>
-          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={articlesHref}>
+          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={communitiesHref}>
             {isEnglish ? 'Communities' : 'Communautés'}
           </a>
-          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={articlesHref}>
+          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={personalHref}>
             {isEnglish ? 'Personal notes' : 'Carnets personnels'}
           </a>
           <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={searchHref}>
