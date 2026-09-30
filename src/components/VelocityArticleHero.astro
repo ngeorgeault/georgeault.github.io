@@ -3,7 +3,9 @@ interface Props {
   article: any;
 }
 const { article } = Astro.props;
-const fmt = new Intl.DateTimeFormat('fr-CA', { day: 'numeric', month: 'long', year: 'numeric' });
+const locale = article.data.lang === 'en-CA' ? 'en-CA' : 'fr-CA';
+const fmt = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric' });
+const viewsLabel = article.data.lang === 'en-CA' ? 'legacy WordPress views' : 'vues WordPress héritées';
 ---
 
 <header class="relative overflow-hidden border-b border-border bg-background-secondary pt-20 pb-12 md:pt-28 md:pb-16">
@@ -38,6 +40,15 @@ const fmt = new Intl.DateTimeFormat('fr-CA', { day: 'numeric', month: 'long', ye
       <time datetime={article.data.publishedAt.toISOString()}>{fmt.format(article.data.publishedAt)}</time>
       <div class="hidden h-8 w-px bg-border md:block"></div>
       <span>{article.data.categories.join(' · ')}</span>
+      {article.data.legacyViews !== undefined && (
+        <>
+          <div class="hidden h-8 w-px bg-border md:block"></div>
+          <span class="inline-flex items-center gap-1.5">
+            <span aria-hidden="true">◉</span>
+            {article.data.legacyViews} {viewsLabel}
+          </span>
+        </>
+      )}
     </div>
   </div>
 
