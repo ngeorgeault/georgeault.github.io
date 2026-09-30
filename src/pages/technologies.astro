@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionPage from '../components/SectionPage.astro';
+import { getCollection } from 'astro:content';
+import { sectionGroups, categorySlug } from '../config/sections';
+
+const group = sectionGroups['technologies'];
+const articles = (await getCollection('articles'))
+  .filter((article) => article.data.lang === 'fr-CA')
+  .filter((article) => article.data.categories.some((category) => group.categories.includes(category as never)))
+  .sort((a,b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const counts = new Map();
+for (const article of articles) {
+  for (const category of article.data.categories) {
+    if (!group.categories.includes(category as never)) continue;
+    counts.set(category, (counts.get(category) ?? 0) + 1);
+  }
+}
+const categoryLinks = [...counts.entries()]
+  .sort((a,b) => a[0].localeCompare(b[0], 'fr'))
+  .map(([label,count]) => ({ label, count, href: `/categorie/${categorySlug(label)}/` }));
+---
+<BaseLayout title="Technologies — Tales from the Scarf" lang="fr-CA">
+  <SectionPage
+    title="Technologies"
+    description="IA, Microsoft 365, Power Platform, agents, innovation et expérimentations technologiques."
+    articles={articles}
+    categoryLinks={categoryLinks}
+  />
+</BaseLayout>
