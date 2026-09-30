@@ -79,6 +79,8 @@ for (const post of posts) {
   const title = decode(post.title?.rendered ?? slug);
   const body = cleanHtml(post.content?.rendered ?? '');
   const excerpt = stripTags(post.excerpt?.rendered ?? '').slice(0, 320);
+  const wordCount = stripTags(body).split(/\\s+/).filter(Boolean).length;
+  const readingMinutes = Math.max(1, Math.ceil(wordCount / 220));
   const postCategories = categories(post);
   const postTags = tags(post);
   const featured = media(post);
@@ -106,6 +108,7 @@ for (const post of posts) {
     'translationStatus: "source"',
     `wpId: ${Number(post.id)}`,
     post.modified ? `modifiedAt: ${String(post.modified).slice(0, 10)}` : null,
+    `readingMinutes: ${readingMinutes}`,
     imageUrl ? `imageUrl: ${yamlString(imageUrl)}` : null,
     imageAlt ? `imageAlt: ${yamlString(imageAlt)}` : null,
     '---',
