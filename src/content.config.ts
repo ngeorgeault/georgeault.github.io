@@ -22,6 +22,8 @@ const articles = defineCollection({
     translationOf: z.string().optional(),
     translationStatus: z.enum(['source', 'draft', 'reviewed']).default('source'),
     legacyViews: z.number().int().nonnegative().optional(),
+    wpId: z.number().int().positive().optional(),
+    modifiedAt: z.coerce.date().optional(),
   }),
 });
 
