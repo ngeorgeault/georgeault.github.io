@@ -4,9 +4,11 @@ interface Props {
   featured?: boolean;
 }
 const { article, featured = false } = Astro.props;
-const fmt = new Intl.DateTimeFormat('fr-CA', { day: 'numeric', month: 'short', year: 'numeric' });
+const locale = article.data.lang === 'en-CA' ? 'en-CA' : 'fr-CA';
+const fmt = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', year: 'numeric' });
 const base = import.meta.env.BASE_URL;
-const articleHref = `${base}${article.data.legacyUrl.replace(/^\//, '')}`;
+const prefix = article.data.lang === 'en-CA' ? 'en-ca/' : '';
+const articleHref = `${base}${prefix}${article.data.legacyUrl.replace(/^\//, '')}`;
 ---
 
 <article class:list={[
@@ -31,10 +33,16 @@ const articleHref = `${base}${article.data.legacyUrl.replace(/^\//, '')}`;
     )}
 
     <div class="p-6 md:p-8">
-      <div class="mb-3 flex items-center gap-3 text-xs font-medium text-foreground-subtle">
+      <div class="mb-3 flex flex-wrap items-center gap-2 text-xs font-medium text-foreground-subtle">
         <time datetime={article.data.publishedAt.toISOString()}>{fmt.format(article.data.publishedAt)}</time>
         <span>·</span>
         <span>{article.data.categories.join(' · ')}</span>
+        {article.data.legacyViews !== undefined && (
+          <>
+            <span>·</span>
+            <span>{article.data.legacyViews} {article.data.lang === 'en-CA' ? 'legacy views' : 'vues héritées'}</span>
+          </>
+        )}
       </div>
 
       <h2 class:list={[
