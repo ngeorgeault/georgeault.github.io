@@ -5,20 +5,26 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  lang?: 'fr-CA' | 'en-CA';
+  alternateHref?: string;
 }
 
 const {
   title,
   description = 'Tales from the Scarf — Nicolas Georgeault',
   image,
+  lang = 'fr-CA',
+  alternateHref,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
-const homeHref = base;
-const articlesHref = `${base}#articles`;
+const isEnglish = lang === 'en-CA';
+const homeHref = isEnglish ? `${base}en-ca/` : base;
+const articlesHref = `${homeHref}#articles`;
+const switchTarget = alternateHref ?? (isEnglish ? base : `${base}en-ca/`);
 ---
 <!doctype html>
-<html lang="fr-CA">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -38,23 +44,45 @@ const articlesHref = `${base}#articles`;
   </head>
   <body class="bg-background text-foreground">
     <header class="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-xl">
-      <div class="container flex h-18 items-center justify-between">
+      <div class="container flex h-18 items-center justify-between gap-4">
         <a class="font-display text-xl font-bold tracking-tight" href={homeHref}>
           Tales from the Scarf
         </a>
-        <nav class="hidden items-center gap-1 md:flex">
-          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={homeHref}>Accueil</a>
-          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={articlesHref}>Technologies</a>
-          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={articlesHref}>Communautés</a>
-          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={articlesHref}>Carnets personnels</a>
+
+        <nav class="hidden items-center gap-1 lg:flex">
+          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={homeHref}>
+            {isEnglish ? 'Home' : 'Accueil'}
+          </a>
+          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={articlesHref}>
+            {isEnglish ? 'Technology' : 'Technologies'}
+          </a>
+          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={articlesHref}>
+            {isEnglish ? 'Communities' : 'Communautés'}
+          </a>
+          <a class="nav-link nav-link-inactive rounded-md px-3 py-2 text-sm transition-colors" href={articlesHref}>
+            {isEnglish ? 'Personal notes' : 'Carnets personnels'}
+          </a>
         </nav>
-        <button
-          id="theme-toggle"
-          class="rounded-md border border-border bg-background-secondary px-3 py-2 text-sm font-semibold hover:bg-background-tertiary"
-          aria-label="Changer de thème"
-        >
-          ◐
-        </button>
+
+        <div class="flex items-center gap-2">
+          <label class="sr-only" for="locale-select">{isEnglish ? 'Language' : 'Langue'}</label>
+          <select
+            id="locale-select"
+            class="rounded-md border border-border bg-background-secondary px-3 py-2 text-sm font-semibold text-foreground shadow-sm outline-none transition-colors hover:bg-background-tertiary"
+            data-target={switchTarget}
+          >
+            <option value="fr-CA" selected={!isEnglish}>FR-CA</option>
+            <option value="en-CA" selected={isEnglish}>EN-CA</option>
+          </select>
+
+          <button
+            id="theme-toggle"
+            class="rounded-md border border-border bg-background-secondary px-3 py-2 text-sm font-semibold hover:bg-background-tertiary"
+            aria-label={isEnglish ? 'Toggle theme' : 'Changer de thème'}
+          >
+            ◐
+          </button>
+        </div>
       </div>
     </header>
 
@@ -63,8 +91,8 @@ const articlesHref = `${base}#articles`;
     <footer class="border-t border-border bg-background-secondary">
       <div class="container py-10 text-sm text-foreground-muted">
         <div class="flex flex-col justify-between gap-3 md:flex-row">
-          <span>POC Astro + OKF — simulation isolée de georgeault.net.</span>
-          <span>Présentation basée sur Velocity.</span>
+          <span>{isEnglish ? 'Astro + OKF migration sandbox for georgeault.net.' : 'POC Astro + OKF — simulation isolée de georgeault.net.'}</span>
+          <span>{isEnglish ? 'Velocity presentation layer.' : 'Présentation basée sur Velocity.'}</span>
         </div>
       </div>
     </footer>
@@ -74,6 +102,12 @@ const articlesHref = `${base}#articles`;
         const root = document.documentElement;
         const dark = root.classList.toggle('dark');
         localStorage.setItem('theme', dark ? 'dark' : 'light');
+      });
+
+      const localeSelect = document.getElementById('locale-select');
+      localeSelect?.addEventListener('change', (event) => {
+        const target = localeSelect.dataset.target;
+        if (target) window.location.href = target;
       });
     </script>
   </body>
