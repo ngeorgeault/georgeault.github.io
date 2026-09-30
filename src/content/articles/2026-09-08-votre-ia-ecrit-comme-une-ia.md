@@ -1,24 +1,31 @@
 ---
 title: "Votre IA écrit comme une IA ? Commencez par lui dire comment vous voulez qu’elle écrive"
-description: "La qualité rédactionnelle d’une IA dépend fortement du contexte, des exemples et des règles de style que nous lui donnons."
+description: "Avant de chercher un prompt miracle, il faut donner à l’IA des instructions, des exemples et une voix."
 publishedAt: 2026-09-08
 author: "Nicolas Georgeault"
 categories: ["Article"]
-tags: ["Intelligence Artificielle", "Écriture", "Prompt", "Style"]
+tags: ["Intelligence Artificielle", "Écriture", "Microsoft Copilot", "Instructions"]
 legacyUrl: "/votre-ia-ecrit-comme-une-ia/"
 sourceUrl: "https://georgeault.net/votre-ia-ecrit-comme-une-ia/"
 okfSource: "knowledge/okf/articles/ia-style-redactionnel.md"
 migrationStatus: "sample"
+lang: "fr-CA"
+translationKey: "ai-writing-style"
+translationStatus: "source"
+legacyViews: 119
+imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1800&q=82"
+imageAlt: "Illustration technologique utilisée comme visuel temporaire du POC"
+imageCredit: "Visuel temporaire du POC — l’image originale WordPress sera importée avec la médiathèque lors du vrai dry-run."
 ---
 
-Lorsque tous les textes générés commencent à se ressembler, le premier réflexe consiste souvent à accuser le modèle. Pourtant, il lui manque généralement quelque chose de beaucoup plus simple : une définition concrète de la manière dont nous voulons écrire.
+On parle beaucoup de mauvais prompts. Beaucoup moins de ce qui change réellement la qualité d’une production : expliquer au système comment nous voulons travailler avec lui.
 
-## Donner une voix au système
+## Une voix est du contexte
 
-Le ton, la longueur des phrases, la structure des paragraphes, les formulations à éviter et des exemples représentatifs font partie du contexte utile.
+Le ton, la longueur des phrases, les formulations à éviter, la structure préférée et des exemples représentatifs font partie du contexte utile.
 
-## Des instructions plutôt qu’un prompt magique
+## Des instructions persistantes
 
-L’objectif n’est pas de trouver une formule miraculeuse. Il est de construire progressivement un environnement rédactionnel cohérent et réutilisable.
+L’objectif n’est pas de trouver une formule magique. Il est de construire un environnement rédactionnel cohérent et réutilisable.
 
-Dans cette simulation, ces règles pourraient elles-mêmes devenir un objet OKF distinct et être réutilisées par plusieurs publications.
+Cette pratique devient ici une connaissance OKF distincte de l’article qui l’explique au lecteur.
