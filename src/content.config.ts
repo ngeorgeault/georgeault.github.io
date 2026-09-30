@@ -17,6 +17,11 @@ const articles = defineCollection({
     imageUrl: z.string().url().optional(),
     imageAlt: z.string().optional(),
     imageCredit: z.string().optional(),
+    lang: z.enum(['fr-CA', 'en-CA']).default('fr-CA'),
+    translationKey: z.string(),
+    translationOf: z.string().optional(),
+    translationStatus: z.enum(['source', 'draft', 'reviewed']).default('source'),
+    legacyViews: z.number().int().nonnegative().optional(),
   }),
 });
 
